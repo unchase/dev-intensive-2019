@@ -46,5 +46,61 @@ data class User (
             var (firstName, lastName) = Utils.parseFullName(fullName)
             return User(id = "$lastId", firstName = firstName, lastName = lastName)
         }
+
+        fun makeUserFromBuilder(builder: Builder): User
+        {
+            var currId = builder.id
+            if (builder.id === "-1"){
+                lastId++
+                currId = lastId.toString()
+            }
+
+            return User("$currId", builder.firstName, builder.lastName,
+                builder.avatar, builder.rating, builder.respect, builder.lastVisit, builder.isOnline)
+        }
+    }
+
+    class Builder {
+        var id: String = "-1"
+            private set
+
+        var firstName: String? = null
+            private set
+
+        var lastName: String? = null
+            private set
+
+        var avatar: String? = null
+            private set
+
+        var rating: Int = 0
+            private set
+
+        var respect: Int = 0
+            private set
+
+        var lastVisit: Date? = Date()
+            private set
+
+        var isOnline: Boolean = false
+            private set
+
+        fun id(id: String) = apply { this.id = id }
+
+        fun firstName(firstName: String?) = apply { this.firstName = firstName }
+
+        fun lastName(lastName: String?) = apply { this.lastName = lastName }
+
+        fun avatar(avatar: String?) = apply { this.avatar = avatar }
+
+        fun rating(rating: Int) = apply { this.rating = rating }
+
+        fun respect(respect: Int) = apply { this.respect = respect }
+
+        fun lastVisit(lastVisit: Date?) = apply { this.lastVisit = lastVisit }
+
+        fun isOnline(isOnline: Boolean) = apply { this.isOnline = isOnline }
+
+        fun build() = makeUserFromBuilder(this)
     }
 }
