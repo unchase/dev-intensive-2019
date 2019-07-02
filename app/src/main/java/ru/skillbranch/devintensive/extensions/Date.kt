@@ -46,8 +46,16 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val minutes = diff / MINUTE
             return when(minutes.toString()[minutes.toString().length - 1])
             {
-                '1' -> "$minutes минуту назад"
-                '2', '3', '4' -> "$minutes минуты назад"
+                '1' ->
+                    if (minutes.toString().length > 1 && minutes.toString()[minutes.toString().length - 2] == '1')
+                        "$minutes минут назад"
+                    else
+                        "$minutes минуту назад"
+                '2', '3', '4' ->
+                    if (minutes.toString().length > 1 && minutes.toString()[minutes.toString().length - 2] == '1')
+                        "$minutes минут назад"
+                    else
+                        "$minutes минуты назад"
                 else -> "$minutes минут назад"
             }
         }
@@ -60,8 +68,16 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val hours = diff / HOUR
             return when(hours.toString()[hours.toString().length - 1])
             {
-                '1' -> "$hours час назад"
-                '2', '3', '4' -> "$hours часа назад"
+                '1' ->
+                    if (hours.toString().length > 1 && hours.toString()[hours.toString().length - 2] == '1')
+                        "$hours часов назад"
+                    else
+                        "$hours час назад"
+                '2', '3', '4' ->
+                    if (hours.toString().length > 1 && hours.toString()[hours.toString().length - 2] == '1')
+                        "$hours часов назад"
+                    else
+                        "$hours часа назад"
                 else -> "$hours часов назад"
             }
         }
@@ -74,9 +90,17 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val days = diff / DAY
             return when(days.toString()[days.toString().length - 1])
             {
-                '1' -> "$days день назад"
-                '2', '3', '4' -> "$days дня назад"
-                else -> "$days ней назад"
+                '1' ->
+                    if (days.toString().length > 1 && days.toString()[days.toString().length - 2] == '1')
+                        "$days дней назад"
+                    else
+                        "$days день назад"
+                '2', '3', '4' ->
+                    if (days.toString().length > 1 && days.toString()[days.toString().length - 2] == '1')
+                        "$days дней назад"
+                    else
+                        "$days дня назад"
+                else -> "$days дней назад"
             }
         }
 
@@ -99,8 +123,16 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val minutes = diff / MINUTE
             return when(minutes.toString()[minutes.toString().length - 1])
             {
-                '1' -> "через $minutes минуту"
-                '2', '3', '4' -> "через $minutes минуты"
+                '1' ->
+                    if (minutes.toString().length > 1 && minutes.toString()[minutes.toString().length - 2] == '1')
+                        "через $minutes минут"
+                    else
+                        "через $minutes минуту"
+                '2', '3', '4' ->
+                    if (minutes.toString().length > 1 && minutes.toString()[minutes.toString().length - 2] == '1')
+                        "через $minutes минут"
+                    else
+                        "через $minutes минуты"
                 else -> "через $minutes минут"
             }
         }
@@ -113,8 +145,16 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val hours = diff / HOUR
             return when(hours.toString()[hours.toString().length - 1])
             {
-                '1' -> "через $hours час"
-                '2', '3', '4' -> "через $hours часа"
+                '1' ->
+                    if (hours.toString().length > 1 && hours.toString()[hours.toString().length - 2] == '1')
+                        "через $hours часов"
+                    else
+                        "через $hours час"
+                '2', '3', '4' ->
+                    if (hours.toString().length > 1 && hours.toString()[hours.toString().length - 2] == '1')
+                        "через $hours часов"
+                    else
+                        "через $hours часа"
                 else -> "через $hours часов"
             }
         }
@@ -127,9 +167,17 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             val days = diff / DAY
             return when(days.toString()[days.toString().length - 1])
             {
-                '1' -> "через $days день"
-                '2', '3', '4' -> "через $days дня"
-                else -> "через $days ней"
+                '1' ->
+                    if (days.toString().length > 1 && days.toString()[days.toString().length - 2] == '1')
+                        "через $days дней"
+                    else
+                        "через $days день"
+                '2', '3', '4' ->
+                    if (days.toString().length > 1 && days.toString()[days.toString().length - 2] == '1')
+                        "через $days дней"
+                    else
+                        "через $days дня"
+                else -> "через $days дней"
             }
         }
 

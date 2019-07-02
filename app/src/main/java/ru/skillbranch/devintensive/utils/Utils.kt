@@ -51,20 +51,25 @@ object Utils {
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
-        val words = payload.trim().split(divider).toMutableList()
+        val words = payload.trim().split(" ").toMutableList()
 
         var output = ""
+        var first = true
+
 
         for(word in words){
+            var trimWord = word.trim()
             var transliteratedWordBuilder = StringBuilder()
-            for (i in 0 until word.length) {
-                when (divider) {
-                    word[i].toString() -> transliteratedWordBuilder.append(divider)
-                    else -> transliteratedWordBuilder.append(transliterationMap[word[i].toString().toLowerCase()] ?: word[i])
-                }
+            for (i in 0 until trimWord.length) {
+                transliteratedWordBuilder.append(transliterationMap[trimWord[i].toString().toLowerCase()] ?: trimWord[i])
             }
 
-            output += transliteratedWordBuilder.toString().capitalize() + divider
+            if (!first)
+                output += divider
+            else
+                first = false
+
+            output += transliteratedWordBuilder.toString().capitalize()
         }
 
         return output.trim()
@@ -74,16 +79,16 @@ object Utils {
         val fn = firstName?.trim()
         val ln = lastName?.trim()
 
-        if (fn.isNullOrBlank() || ln.isNullOrBlank())
+        if (fn.isNullOrBlank() && ln.isNullOrBlank())
             return null
 
         if (fn.isNullOrBlank())
-            return ln.toUpperCase()
+            return ln?.get(0)?.toUpperCase().toString()
 
         if (ln.isNullOrBlank())
-            return fn.toUpperCase()
+            return fn?.get(0)?.toUpperCase().toString()
 
-        return "${fn.toUpperCase()}${ln.toUpperCase()}"
+        return "${fn?.get(0)?.toUpperCase()}${ln?.get(0)?.toUpperCase()}"
     }
 }
 
