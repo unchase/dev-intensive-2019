@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
         benderImage = iv_bender
         textTxt = tv_text
-        //et_message.setText(savedInstanceState?.getString("MESSAGE") ?: "")
         messageEt = et_message
         sendBtn = iv_send
         sendBtn.setOnClickListener(this)
@@ -40,14 +39,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
-        benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
-
         Log.d("M_MainActivity", "onCreate $status $question")
-        val (r,g,b) = benderObj.status.color
-        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+        benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
 
         textTxt.text = benderObj.askQuestion()
 
+        val (r,g,b) = benderObj.status.color
+        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
     }
 
     override fun onRestart() {
@@ -85,13 +83,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
-        //outState?.putString("MESSAGE", et_message.text.toString())
         Log.d("M_MainActivity","onSaveInstanceSet ${benderObj.status.name} ${benderObj.question.name}")
     }
 
     override fun onClick(v: View?) {
         if(v?.id == R.id.iv_send){
-            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
             messageEt.setText("")
             val (r,g,b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)

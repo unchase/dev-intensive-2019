@@ -2,7 +2,10 @@ package ru.skillbranch.devintensive.models
 
 import java.util.*
 
-class Bender(var status:Status = Status.NORMAL, var question: Question = Question.NAME) {
+class Bender(
+    var status:Status = Status.NORMAL,
+    var question: Question = Question.NAME
+) {
 
     fun askQuestion(): String = when (question) {
         Question.NAME -> Question.NAME.question
@@ -17,8 +20,8 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
         return if (question == Question.IDLE) {
             ""
         } else {
-            val valid = question.validateAnswer(answer)
-            if (valid.isEmpty()) {
+            val validationText = question.validateAnswer(answer)
+            if (validationText.isEmpty()) {
                 if (question.answers.contains(answer.toLowerCase(Locale("ru")))) {
                     question = question.nextQuestion()
                     "Отлично - ты справился\n"
@@ -30,7 +33,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
                     } else "Это неправильный ответ\n"
                 }
             }else{
-                "$valid\n"
+                "$validationText\n"
             }
         } + question.question to status.color
     }
@@ -41,13 +44,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
         DANGER(Triple(255, 60, 60)),
         CRITICAL(Triple(255, 0, 0));
 
-        fun nextStatus() : Status{
-            return if(this.ordinal < values().lastIndex){
-                values()[this.ordinal + 1]
-            }else{
-                values()[0]
-            }
-        }
+        fun nextStatus() : Status = if (this.ordinal < values().lastIndex)  values()[this.ordinal + 1] else values()[0]
     }
 
     enum class Question(val question: String, val answers: List<String>){
