@@ -192,5 +192,39 @@ enum class TimeUnits{
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(value:Int):String{
+        val unitValue = value.toString()
+        return "$unitValue "+when (this){
+            SECOND ->{"секунд"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
+                        else -> ""
+                    }
+            }
+            MINUTE -> {"минут"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
+                        else -> ""
+                    }
+            }
+            HOUR -> {"час"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else ""
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else "а"
+                        else -> "ов"
+                    }
+            }
+            DAY -> {"д"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ень"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ня"
+                        else -> "ней"
+                    }
+            }
+        }
+    }
 }
